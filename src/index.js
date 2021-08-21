@@ -159,7 +159,7 @@ function speak(text) {
 }
 
 function loadProblems() {
-  var grade = gradeOption.selectedIndex + 3;
+  var grade = gradeOption.selectedIndex + 2;
   if (grade > 0) {
     fetch('data/' + mode.textContent.toLowerCase() + '/' + grade + '.tsv').then(function(response) {
       return response.text();
