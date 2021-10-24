@@ -334,7 +334,6 @@ function formatSentence(sentence) {
     }
     return word;
   }).join(" ");
-  console.log(sentence);
   return sentence;
 }
 
