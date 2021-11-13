@@ -1,4 +1,4 @@
-var CACHE_NAME = '2021-11-13 09:45';
+var CACHE_NAME = '2021-11-14 00:20';
 var urlsToCache = [
   "/speecha/",
   "/speecha/index.js",
