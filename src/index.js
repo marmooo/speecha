@@ -16,11 +16,11 @@ let correctCount = 0;
 let errorCount = 0;
 let problems = [];
 let englishVoices = [];
+const voiceInput = setVoiceInput();
 let correctAudio, endAudio;
 loadAudios();
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
-const voiceInput = setVoiceInput();
 loadConfig();
 
 function loadConfig() {
