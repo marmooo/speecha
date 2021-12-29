@@ -322,7 +322,7 @@ function formatSentence(sentence) {
   // 典型的な短縮形は原形に変換
   sentence = sentence.split(" ").map((word) => {
     // 数字は英単語列に変換
-    if (word.match(/\d+(?:\.\d+)?/)) {
+    if (/\d+(?:\.\d+)?/.test(word)) {
       return numberToWords.toWords(word).replace(/,/g, "").replace(/-/g, " ");
     }
     // 短縮形は正規化
