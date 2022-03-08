@@ -142,19 +142,17 @@ function speak(text) {
 function loadProblems() {
   const grade = gradeOption.selectedIndex + 2;
   if (grade > 0) {
-    fetch("data/" + mode.textContent.toLowerCase() + "/" + grade + ".tsv").then(
-      function (response) {
-        return response.text();
-      },
-    ).then(function (tsv) {
-      problems = tsv.trim().split("\n").map((line) => {
-        const [en, jaStr] = line.split("\t");
-        const ja = jaStr.split("|").slice(0, 3).join("\n");
-        return { en: en, ja: ja };
+    fetch("data/" + mode.textContent.toLowerCase() + "/" + grade + ".tsv")
+      .then((response) => response.text())
+      .then((tsv) => {
+        problems = tsv.trimEnd().split("\n").map((line) => {
+          const [en, jaStr] = line.split("\t");
+          const ja = jaStr.split("|").slice(0, 3).join("\n");
+          return { en: en, ja: ja };
+        });
+      }).catch((err) => {
+        console.error(err);
       });
-    }).catch(function (err) {
-      console.error(err);
-    });
   }
 }
 
@@ -281,7 +279,8 @@ function initTime() {
 
 function scoring() {
   document.getElementById("score").textContent = correctCount;
-  document.getElementById("problemCount").textContent = correctCount + errorCount;
+  document.getElementById("problemCount").textContent = correctCount +
+    errorCount;
 }
 
 // he'd --> he had/would の複数があるので無視
