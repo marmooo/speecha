@@ -1,6 +1,6 @@
 # Speecha
 
-[ネコでもできる英会話アプリ](https://marmooo.github.io/speecha/)です。
+[ネコでもできる英会話アプリ](https://marmooo.github.io/speecha/)(中級)です。
 
 ## Installation
 
