@@ -143,7 +143,7 @@ function speak(text) {
 }
 
 function loadProblems() {
-  const grade = gradeOption.selectedIndex + 2;
+  const grade = gradeOption.selectedIndex + 3;
   const course = document.getElementById("course").textContent;
   const dir = (course == "短文") ? "easy/" : "hard/";
   if (grade > 0) {
