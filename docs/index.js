@@ -16,7 +16,7 @@ customElements.define("talk-box",class extends HTMLElement{constructor(){super()
 function skipSentence(){const topSentence=document.getElementById("sentencesPanel").firstElementChild;if(topSentence.id!="guide"){errorCount+=1;topSentence.classList.add("text-danger");nextProblem();}}
 function startGame(){clearInterval(typeTimer);startButton.removeEventListener("click",startGame);startButton.addEventListener("click",replay);initTime();loadProblems();countdown();}
 function startTypeTimer(){const timeNode=document.getElementById("time");typeTimer=setInterval(function(){const arr=timeNode.textContent.split("秒 /");const t=parseInt(arr[0]);if(t>0){timeNode.textContent=(t-1)+"秒 /"+arr[1];}else{clearInterval(typeTimer);bgm.pause();playAudio(endAudio);playPanel.classList.add("d-none");countPanel.hidden=true;scorePanel.hidden=false;scoring();}},1000);}
-function initTime(){document.getElementById("time").textContent=gameTime+"秒 / "+gameTime+
+function initTime(){document.getElementById("time").textContent=gameTime+" / "+gameTime+
 "秒";}
 function scoring(){document.getElementById("score").textContent=correctCount;document.getElementById("problemCount").textContent=correctCount+
 errorCount;}
