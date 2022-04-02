@@ -278,7 +278,7 @@ function startTypeTimer() {
 }
 
 function initTime() {
-  document.getElementById("time").textContent = gameTime + "秒 / " + gameTime +
+  document.getElementById("time").textContent = gameTime + " / " + gameTime +
     "秒";
 }
 
