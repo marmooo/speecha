@@ -1,7 +1,8 @@
-var CACHE_NAME = '2022-03-10 00:20';
+var CACHE_NAME = '2022-04-02 13:50';
 var urlsToCache = [
   "/speecha/",
   "/speecha/index.js",
+  "/speecha/words.lst",
   "/speecha/mp3/bgm.mp3",
   "/speecha/mp3/cat.mp3",
   "/speecha/mp3/correct.mp3",
