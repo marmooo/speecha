@@ -352,7 +352,6 @@ function formatSentence(sentence) {
   }).join(" ");
   // 認識の難しい固有名詞を除去
   // 大文字小文字が不安定なので、頻度の高い単語だけを認識対象にする
-  // 未知語を X などに変換する方法は、長い単語がうまく動かない
   if (document.getElementById("mode").textContent == "EASY") {
     sentence = sentence.split(/[,.!?]/)
       .map((s) => {
