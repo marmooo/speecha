@@ -1,4 +1,4 @@
-var CACHE_NAME = '2022-04-02 14:40';
+var CACHE_NAME = '2022-04-22 08:25';
 var urlsToCache = [
   "/speecha/",
   "/speecha/index.js",
@@ -9,6 +9,7 @@ var urlsToCache = [
   "/speecha/mp3/end.mp3",
   "/speecha/mp3/keyboard.mp3",
   "/speecha/voice.svg",
+  "/speecha/favicon/favicon.svg",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
 ];
 
