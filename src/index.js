@@ -1,3 +1,5 @@
+const replyPlease = document.getElementById("replyPlease");
+const reply = document.getElementById("reply");
 const playPanel = document.getElementById("playPanel");
 const countPanel = document.getElementById("countPanel");
 const scorePanel = document.getElementById("scorePanel");
@@ -240,6 +242,8 @@ function countdown() {
 }
 
 function skipSentence() {
+  replyPlease.classList.remove("d-none");
+  reply.classList.add("d-none");
   const topSentence =
     document.getElementById("sentencesPanel").firstElementChild;
   if (topSentence.id != "guide") {
@@ -413,6 +417,8 @@ function setVoiceInput() {
         playAudio(correctAudio);
         nextProblem();
       }
+      replyPlease.classList.add("d-none");
+      reply.classList.remove("d-none");
       voiceInput.stop();
     };
     return voiceInput;
@@ -427,7 +433,6 @@ function voiceInputOnStart() {
 function voiceInputOnStop() {
   document.getElementById("startVoiceInput").classList.remove("d-none");
   document.getElementById("stopVoiceInput").classList.add("d-none");
-  document.getElementById("reply").textContent = "英語でまねよう";
 }
 
 function startVoiceInput() {
