@@ -436,7 +436,7 @@ function voiceInputOnStop() {
 }
 
 function startVoiceInput() {
-  voiceInput.stop();
+  voiceInput.start();
 }
 
 function stopVoiceInput() {

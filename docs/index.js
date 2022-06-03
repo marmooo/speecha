@@ -30,7 +30,7 @@ playAudio(correctAudio);nextProblem();}
 replyPlease.classList.add("d-none");reply.classList.remove("d-none");voiceInput.stop();};return voiceInput;}}
 function voiceInputOnStart(){document.getElementById("startVoiceInput").classList.add("d-none");document.getElementById("stopVoiceInput").classList.remove("d-none");}
 function voiceInputOnStop(){document.getElementById("startVoiceInput").classList.remove("d-none");document.getElementById("stopVoiceInput").classList.add("d-none");}
-function startVoiceInput(){voiceInput.stop();}
+function startVoiceInput(){voiceInput.start();}
 function stopVoiceInput(){voiceInputOnStop();voiceInput.stop();}
 function changeMode(){if(this.textContent=="EASY"){this.textContent="HARD";}else{this.textContent="EASY";}}
 function changeCourse(){if(this.textContent=="短文"){this.textContent="長文";}else{this.textContent="短文";}}
