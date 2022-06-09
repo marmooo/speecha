@@ -403,11 +403,10 @@ function setVoiceInput() {
       }
     };
     voiceInput.onresult = (event) => {
-      const reply = event.results[0][0].transcript;
-      document.getElementById("reply").textContent = reply;
-      const formattedReply = formatSentence(reply);
+      const replyText = event.results[0][0].transcript;
+      document.getElementById("reply").textContent = replyText;
+      const formattedReply = formatSentence(replyText);
       const formattedAnswer = formatSentence(answer);
-      console.log([reply, answer, formattedReply, formattedAnswer]);
       if (isEqual(formattedReply, formattedAnswer)) {
         correctCount += 1;
         if (navigator.onLine) {
