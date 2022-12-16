@@ -212,8 +212,8 @@ function countdown() {
   correctCount = errorCount = 0;
   startButton.disabled = true;
   playPanel.classList.add("d-none");
-  countPanel.hidden = false;
-  scorePanel.hidden = true;
+  countPanel.classList.remove("d-none");
+  scorePanel.classList.add("d-none");
   while (resultNode.firstChild) {
     resultNode.removeChild(resultNode.firstChild);
   }
@@ -228,8 +228,8 @@ function countdown() {
     } else {
       clearInterval(timer);
       startButton.disabled = false;
-      countPanel.hidden = true;
-      scorePanel.hidden = true;
+      countPanel.classList.add("d-none");
+      scorePanel.classList.add("d-none");
       playPanel.classList.remove("d-none");
       nextProblem();
       startGameTimer();
@@ -263,8 +263,8 @@ function startGameTimer() {
       bgm.pause();
       playAudio(endAudio);
       playPanel.classList.add("d-none");
-      countPanel.hidden = true;
-      scorePanel.hidden = false;
+      countPanel.classList.add("d-none");
+      scorePanel.classList.remove("d-none");
       scoring();
     }
   }, 1000);
