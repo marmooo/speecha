@@ -233,7 +233,7 @@ function countdown() {
       scorePanel.hidden = true;
       playPanel.classList.remove("d-none");
       nextProblem();
-      startTypeTimer();
+      startGameTimer();
       if (localStorage.getItem("bgm") == 1) {
         bgm.play();
       }
@@ -253,7 +253,7 @@ function skipSentence() {
   }
 }
 
-function startTypeTimer() {
+function startGameTimer() {
   const timeNode = document.getElementById("time");
   typeTimer = setInterval(() => {
     const t = parseInt(timeNode.textContent);
