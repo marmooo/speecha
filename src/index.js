@@ -183,12 +183,6 @@ function startGame() {
   initTime();
   loadProblems();
   countdown();
-  correctCount = errorCount = 0;
-  countPanel.hidden = false;
-  scorePanel.hidden = true;
-  while (resultNode.firstChild) {
-    resultNode.removeChild(resultNode.firstChild);
-  }
 }
 
 function getRandomInt(min, max) {
@@ -216,9 +210,13 @@ customElements.define(
 
 function countdown() {
   correctCount = errorCount = 0;
+  startButton.disabled = true;
   playPanel.classList.add("d-none");
   countPanel.hidden = false;
   scorePanel.hidden = true;
+  while (resultNode.firstChild) {
+    resultNode.removeChild(resultNode.firstChild);
+  }
   counter.textContent = 3;
   const timer = setInterval(() => {
     const counter = document.getElementById("counter");
@@ -229,6 +227,7 @@ function countdown() {
       counter.textContent = t;
     } else {
       clearInterval(timer);
+      startButton.disabled = false;
       countPanel.hidden = true;
       scorePanel.hidden = true;
       playPanel.classList.remove("d-none");
