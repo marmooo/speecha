@@ -178,7 +178,7 @@ function nextProblem() {
   speak(roma);
 }
 
-function replay() {
+function startGame() {
   clearInterval(typeTimer);
   initTime();
   loadProblems();
@@ -251,15 +251,6 @@ function skipSentence() {
     topSentence.classList.add("text-danger");
     nextProblem();
   }
-}
-
-function startGame() {
-  clearInterval(typeTimer);
-  startButton.removeEventListener("click", startGame);
-  startButton.addEventListener("click", replay);
-  initTime();
-  loadProblems();
-  countdown();
 }
 
 function startTypeTimer() {
