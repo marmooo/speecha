@@ -7,7 +7,7 @@ const startButton = document.getElementById("startButton");
 const gradeOption = document.getElementById("gradeOption");
 const resultNode = document.getElementById("result");
 const gameTime = 180;
-let typeTimer;
+let gameTimer;
 // https://dova-s.jp/bgm/play14775.html
 const bgm = new Audio("mp3/bgm.mp3");
 bgm.volume = 0.1;
@@ -179,7 +179,7 @@ function nextProblem() {
 }
 
 function startGame() {
-  clearInterval(typeTimer);
+  clearInterval(gameTimer);
   initTime();
   loadProblems();
   countdown();
@@ -255,12 +255,12 @@ function skipSentence() {
 
 function startGameTimer() {
   const timeNode = document.getElementById("time");
-  typeTimer = setInterval(() => {
+  gameTimer = setInterval(() => {
     const t = parseInt(timeNode.textContent);
     if (t > 0) {
       timeNode.textContent = t - 1;
     } else {
-      clearInterval(typeTimer);
+      clearInterval(gameTimer);
       bgm.pause();
       playAudio(endAudio);
       playPanel.classList.add("d-none");
@@ -478,7 +478,7 @@ document.getElementById("startVoiceInput").onclick = startVoiceInput;
 document.getElementById("stopVoiceInput").onclick = stopVoiceInput;
 gradeOption.addEventListener("change", () => {
   initTime();
-  clearInterval(typeTimer);
+  clearInterval(gameTimer);
 });
 document.addEventListener("click", unlockAudio, {
   once: true,
