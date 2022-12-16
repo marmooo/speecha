@@ -467,18 +467,18 @@ loadWhiteList();
     speak(en);
   };
 });
-startButton.addEventListener("click", startGame);
-skipButton.addEventListener("click", skipSentence);
+startButton.onclick = startGame;
+skipButton.onclick = skipSentence;
 document.getElementById("mode").onclick = changeMode;
 document.getElementById("course").onclick = changeCourse;
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("toggleBGM").onclick = toggleBGM;
 document.getElementById("startVoiceInput").onclick = startVoiceInput;
 document.getElementById("stopVoiceInput").onclick = stopVoiceInput;
-gradeOption.addEventListener("change", () => {
+gradeOption.onchange = () => {
   initTime();
   clearInterval(gameTimer);
-});
+};
 document.addEventListener("click", unlockAudio, {
   once: true,
   useCapture: true,
