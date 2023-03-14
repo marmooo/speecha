@@ -16,12 +16,7 @@ async function build(threshold) {
     }
   }
   const arr = Array.from(dict);
-  arr.sort((ax, bx) => {
-    const a = ax[1], b = bx[1];
-    if (a < b) return 1;
-    if (a > b) return -1;
-    return 0;
-  });
+  arr.sort((a, b) => b[1] - a[1]);
   const result = arr.slice(0, threshold).map(x => x[0]).join("\n");
   Deno.writeTextFileSync(`src/words.lst`, result);
 }
