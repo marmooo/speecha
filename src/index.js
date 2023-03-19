@@ -477,11 +477,11 @@ function loadWhiteList() {
 
 loadWhiteList();
 
-[...document.getElementsByClassName("voice")].forEach((e) => {
-  e.onclick = () => {
-    const en = this.nextElementSibling.textContent;
+[...document.getElementsByClassName("voice")].forEach((node) => {
+  node.addEventListener("click", (event) => {
+    const en = event.target.nextElementSibling.textContent;
     speak(en);
-  };
+  });
 });
 startButton.onclick = startGame;
 skipButton.onclick = skipSentence;
