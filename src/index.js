@@ -449,19 +449,19 @@ function stopVoiceInput() {
   voiceInput.stop();
 }
 
-function changeMode() {
-  if (this.textContent == "EASY") {
-    this.textContent = "HARD";
+function changeMode(event) {
+  if (event.target.textContent == "EASY") {
+    event.target.textContent = "HARD";
   } else {
-    this.textContent = "EASY";
+    event.target.textContent = "EASY";
   }
 }
 
-function changeCourse() {
-  if (this.textContent == "短文") {
-    this.textContent = "長文";
+function changeCourse(event) {
+  if (event.textContent == "短文") {
+    event.target.textContent = "長文";
   } else {
-    this.textContent = "短文";
+    event.target.textContent = "短文";
   }
 }
 
