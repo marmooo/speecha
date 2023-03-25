@@ -216,8 +216,8 @@ customElements.define(
       const template = document.getElementById("talk-box").content.cloneNode(
         true,
       );
-      template.querySelector(".voice").onclick = () => {
-        const text = this.nextElementSibling.textContent;
+      template.querySelector(".voice").onclick = (event) => {
+        const text = event.target.nextElementSibling.textContent;
         speak(text);
       };
       this.attachShadow({ mode: "open" }).appendChild(template);
