@@ -124,68 +124,66 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
           </div>
         </div>
       </div>
-      <div>
-        <div id="countPanel" class="text-center notranslate d-none">
-          <div id="counter"></div>
-          <img alt="" src="/speecha/img/cat0.webp" width="150" height="150">
-        </div>
-        <div id="scorePanel" class="text-center pb-3 d-none">
-          <table class="table table-striped w-auto mx-auto">
-            <tbody id="result"></tbody>
-          </table>
-          <div class="text-center py-3">
-            <h2>スコア: 
-              <span class="ms-1 notranslate">
-                <span id="score"></span><span class="mx-1">/</span><span id="problemCount"></span>
-              </span>
-            </h2>
+      <div id="playPanel">
+        <div class="row">
+          <div class="col-sm-4 text-center">
+            <img id="cat" src="/speecha/img/cat0.webp" alt="" class="img-fluid mobile-3" width="300" height="300">
           </div>
-        </div>
-        <div id="playPanel">
-          <div class="row">
-            <div class="col-sm-4 text-center">
-              <img id="cat" src="/speecha/img/cat0.webp" alt="" class="img-fluid mobile-3" width="300" height="300">
+          <div id="sentencesPanel" class="col-sm-8">
+            <div id="guide" class="card">
+              <div class="card-header">
+                <span>一緒に英会話しようにゃん！</span>
+              </div>
+              <div class="card-body">
+                <img class="voice" alt="voice" src="/speecha/voice.svg" width="16" height="16" role="button">
+                <span class="notranslate">Let's have an English conversation with me!</span>
+              </div>
             </div>
-            <div id="sentencesPanel" class="col-sm-8">
-              <div id="guide" class="card">
-                <div class="card-header">
-                  <span>一緒に英会話しようにゃん！</span>
-                </div>
-                <div class="card-body">
-                  <img class="voice" alt="voice" src="/speecha/voice.svg" width="16" height="16" role="button">
-                  <span class="notranslate">Let's have an English conversation with me!</span>
-                </div>
+            <div class="card">
+              <div class="card-header">
+                <span>3分でどれだけ話せるかにゃん？</span>
               </div>
-              <div class="card">
-                <div class="card-header">
-                  <span>3分でどれだけ話せるかにゃん？</span>
-                </div>
-                <div class="card-body">
-                  <img class="voice" alt="voice" src="/speecha/voice.svg" width="16" height="16" role="button">
-                  <span class="notranslate">How much can you talk in 3 minutes?</span>
-                </div>
+              <div class="card-body">
+                <img class="voice" alt="voice" src="/speecha/voice.svg" width="16" height="16" role="button">
+                <span class="notranslate">How much can you talk in 3 minutes?</span>
               </div>
-              <div class="card">
-                <div class="card-header">
-                  <span>初めての人は EASY モードがおすすめだにゃ！</span>
-                </div>
-                <div class="card-body">
-                  <img class="voice" alt="voice" src="/speecha/voice.svg" width="16" height="16" role="button">
-                  <span class="notranslate">EASY mode is recommended for first-time users.</span>
-                </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span>初めての人は EASY モードがおすすめだにゃ！</span>
+              </div>
+              <div class="card-body">
+                <img class="voice" alt="voice" src="/speecha/voice.svg" width="16" height="16" role="button">
+                <span class="notranslate">EASY mode is recommended for first-time users.</span>
               </div>
             </div>
           </div>
-          <div id="recognitionPanel" class="text-center pt-4">
-            <span id="replyPlease" class="me-2 h5">英語でまねよう</span>
-            <span id="reply" class="me-2 h5 notranslate"></span>
-            <button id="startVoiceInput" title="音声入力を開始する" class="btn btn-outline-secondary rounded-pill" type="button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000" width="64" height="64"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 14c1.66.0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
-            </button>
-            <button id="stopVoiceInput" title="音声入力を終了する" class="btn btn-outline-secondary rounded-pill d-none" type="button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64"><path d="M0 0h24v24H0zm0 0h24v24H0z" fill="none"></path><path d="M19 11h-1.7c0 .74-.16 1.43-.43 2.05l1.23 1.23c.56-.98.9-2.09.9-3.28zm-4.02.17c0-.06.02-.11.02-.17V5c0-1.66-1.34-3-3-3S9 3.34 9 5v.18l5.98 5.99zM4.27 3 3 4.27l6.01 6.01V11c0 1.66 1.33 3 2.99 3 .22.0.44-.03.65-.08l1.66 1.66c-.71.33-1.5.52-2.31.52-2.76.0-5.3-2.1-5.3-5.1H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c.91-.13 1.77-.45 2.54-.9L19.73 21 21 19.73 4.27 3z"></path></svg>
-            </button>
-          </div>
+        </div>
+        <div id="recognitionPanel" class="text-center pt-4">
+          <span id="replyPlease" class="me-2 h5">英語でまねよう</span>
+          <span id="reply" class="me-2 h5 notranslate"></span>
+          <button id="startVoiceInput" title="音声入力を開始する" class="btn btn-outline-secondary rounded-pill" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000" width="64" height="64"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 14c1.66.0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
+          </button>
+          <button id="stopVoiceInput" title="音声入力を終了する" class="btn btn-outline-secondary rounded-pill d-none" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64"><path d="M0 0h24v24H0zm0 0h24v24H0z" fill="none"></path><path d="M19 11h-1.7c0 .74-.16 1.43-.43 2.05l1.23 1.23c.56-.98.9-2.09.9-3.28zm-4.02.17c0-.06.02-.11.02-.17V5c0-1.66-1.34-3-3-3S9 3.34 9 5v.18l5.98 5.99zM4.27 3 3 4.27l6.01 6.01V11c0 1.66 1.33 3 2.99 3 .22.0.44-.03.65-.08l1.66 1.66c-.71.33-1.5.52-2.31.52-2.76.0-5.3-2.1-5.3-5.1H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c.91-.13 1.77-.45 2.54-.9L19.73 21 21 19.73 4.27 3z"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div id="countPanel" class="text-center notranslate d-none">
+        <div id="counter"></div>
+        <img alt="" src="/speecha/img/cat0.webp" width="150" height="150">
+      </div>
+      <div id="scorePanel" class="text-center pb-3 d-none">
+        <table class="table table-striped w-auto mx-auto">
+          <tbody id="result"></tbody>
+        </table>
+        <div class="text-center py-3">
+          <h2>スコア: 
+            <span class="ms-1 notranslate">
+              <span id="score"></span><span class="mx-1">/</span><span id="problemCount"></span>
+            </span>
+          </h2>
         </div>
       </div>
     </main>
