@@ -1,4 +1,4 @@
-var CACHE_NAME = "2023-04-08 18:15";
+var CACHE_NAME = "2023-06-08 01:45";
 var urlsToCache = [
   "/speecha/",
   "/speecha/index.js",
@@ -11,7 +11,7 @@ var urlsToCache = [
   "/speecha/img/cat51.webp",
   "/speecha/img/cat52.webp",
   "/speecha/favicon/favicon.svg",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
+  "https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/numberToWords.min.js",
 ];
 
 self.addEventListener("install", function (event) {
