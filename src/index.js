@@ -186,7 +186,7 @@ function nextProblem() {
   const sentencesPanel = document.getElementById("sentencesPanel");
   const prevNode = document.getElementById("sentencesPanel").firstElementChild;
   prevNode.classList.remove("text-primary");
-  const newNode = document.createElement("talk-box");
+  const newNode = new TalkBox();
   sentencesPanel.insertBefore(newNode, sentencesPanel.firstChild);
   newNode.shadowRoot.querySelector(".ja").textContent = problem.ja;
   newNode.shadowRoot.querySelector(".en").textContent = roma;
@@ -208,22 +208,22 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-customElements.define(
-  "talk-box",
-  class extends HTMLElement {
-    constructor() {
-      super();
-      const template = document.getElementById("talk-box").content.cloneNode(
-        true,
-      );
-      template.querySelector(".voice").onclick = (event) => {
-        const text = event.target.nextElementSibling.textContent;
-        speak(text);
-      };
-      this.attachShadow({ mode: "open" }).appendChild(template);
-    }
-  },
-);
+class TalkBox extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.adoptedStyleSheets = [globalCSS];
+
+    const template = document.getElementById("talk-box")
+      .content.cloneNode(true);
+    template.querySelector(".voice").onclick = (event) => {
+      const text = event.target.nextElementSibling.textContent;
+      speak(text);
+    };
+    this.shadowRoot.appendChild(template);
+  }
+}
+customElements.define("talk-box", TalkBox);
 
 function countdown() {
   correctCount = errorCount = 0;
@@ -475,8 +475,21 @@ function loadWhiteList() {
     });
 }
 
+function getGlobalCSS() {
+  let cssText = "";
+  for (const stylesheet of document.styleSheets) {
+    for (const rule of stylesheet.cssRules) {
+      cssText += rule.cssText;
+    }
+  }
+  const css = new CSSStyleSheet();
+  css.replaceSync(cssText);
+  return css;
+}
+
 loadWhiteList();
 
+const globalCSS = getGlobalCSS();
 [...document.getElementsByClassName("voice")].forEach((node) => {
   node.addEventListener("click", (event) => {
     const en = event.target.nextElementSibling.textContent;
