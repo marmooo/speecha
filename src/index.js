@@ -1,6 +1,7 @@
 const replyPlease = document.getElementById("replyPlease");
 const reply = document.getElementById("reply");
 const playPanel = document.getElementById("playPanel");
+const infoPanel = document.getElementById("infoPanel");
 const countPanel = document.getElementById("countPanel");
 const scorePanel = document.getElementById("scorePanel");
 const startButton = document.getElementById("startButton");
