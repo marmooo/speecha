@@ -459,7 +459,7 @@ function changeMode(event) {
 }
 
 function changeCourse(event) {
-  if (event.textContent == "短文") {
+  if (event.target.textContent == "短文") {
     event.target.textContent = "長文";
   } else {
     event.target.textContent = "短文";
