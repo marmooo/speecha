@@ -1,4 +1,4 @@
-var CACHE_NAME = "2023-06-24 10:16";
+var CACHE_NAME = "2023-06-25 00:10";
 var urlsToCache = [
   "/speecha/",
   "/speecha/index.js",
@@ -6,7 +6,6 @@ var urlsToCache = [
   "/speecha/mp3/bgm.mp3",
   "/speecha/mp3/correct3.mp3",
   "/speecha/mp3/end.mp3",
-  "/speecha/voice.svg",
   "/speecha/img/cat0.webp",
   "/speecha/img/cat51.webp",
   "/speecha/img/cat52.webp",
