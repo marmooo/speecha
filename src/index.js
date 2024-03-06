@@ -23,7 +23,7 @@ whiteList.set("mt.", true);
 let problems = [];
 let englishVoices = [];
 const voiceInput = setVoiceInput();
-const audioContext = new AudioContext();
+const audioContext = new globalThis.AudioContext();
 const audioBufferCache = {};
 loadAudio("end", "mp3/end.mp3");
 loadAudio("correct", "mp3/correct3.mp3");
@@ -152,7 +152,7 @@ loadVoices();
 
 function speak(text) {
   speechSynthesis.cancel();
-  const msg = new SpeechSynthesisUtterance(text);
+  const msg = new globalThis.SpeechSynthesisUtterance(text);
   msg.onend = () => {
     voiceInput.start();
   };
@@ -382,9 +382,7 @@ function isEqual(formattedReply, formattedAnswer) {
   const arr1 = formattedReply.split(" ");
   const arr2 = formattedAnswer.split(" ");
   arr2.forEach((word, i) => {
-    if (word == "X") {
-      arr1[i] = "X";
-    }
+    if (word == "X") arr1[i] = "X";
   });
   console.log([arr1, arr2]);
   if (arr1.every((x, i) => x == arr2[i])) {
@@ -395,10 +393,10 @@ function isEqual(formattedReply, formattedAnswer) {
 }
 
 function setVoiceInput() {
-  if (!("webkitSpeechRecognition" in window)) {
+  if (!globalThis.webkitSpeechRecognition) {
     document.getElementById("noSTT").classList.remove("d-none");
   } else {
-    const voiceInput = new webkitSpeechRecognition();
+    const voiceInput = new globalThis.webkitSpeechRecognition();
     voiceInput.lang = "en-US";
     // voiceInput.interimResults = true;
     voiceInput.continuous = true;
