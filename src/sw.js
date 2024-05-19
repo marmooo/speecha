@@ -1,4 +1,4 @@
-const CACHE_NAME = "2024-05-19 17:00";
+const CACHE_NAME = "2024-05-19 17:10";
 const urlsToCache = [
   "/speecha/",
   "/speecha/index.js",
@@ -10,7 +10,6 @@ const urlsToCache = [
   "/speecha/img/cat51.webp",
   "/speecha/img/cat52.webp",
   "/speecha/favicon/favicon.svg",
-  "https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/numberToWords.min.js",
 ];
 
 self.addEventListener("install", (event) => {

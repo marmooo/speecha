@@ -1,3 +1,5 @@
+import numberToWords from "https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/+esm";
+
 const replyPlease = document.getElementById("replyPlease");
 const reply = document.getElementById("reply");
 const playPanel = document.getElementById("playPanel");
