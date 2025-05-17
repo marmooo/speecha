@@ -185,22 +185,18 @@ function speak(text) {
   speechSynthesis.speak(msg);
 }
 
-function loadProblems() {
+async function loadProblems() {
   const grade = gradeOption.selectedIndex + 2;
   const course = document.getElementById("course").textContent;
   const dir = (course == "短文") ? "easy/" : "hard/";
   if (grade > 0) {
-    fetch("data/" + dir + grade + ".tsv")
-      .then((response) => response.text())
-      .then((tsv) => {
-        problems = tsv.trimEnd().split("\n").map((line) => {
-          const [en, jaStr] = line.split("\t");
-          const ja = jaStr.split("|").slice(0, 3).join("\n");
-          return { en: en, ja: ja };
-        });
-      }).catch((err) => {
-        console.error(err);
-      });
+    const response = await fetch("data/" + dir + grade + ".tsv");
+    const tsv = await response.text();
+    problems = tsv.trimEnd().split("\n").map((line) => {
+      const [en, jaStr] = line.split("\t");
+      const ja = jaStr.split("|").slice(0, 3).join("\n");
+      return { en: en, ja: ja };
+    });
   }
 }
 
@@ -219,10 +215,10 @@ function nextProblem() {
   speak(roma);
 }
 
-function startGame() {
+async function startGame() {
   clearInterval(gameTimer);
   initTime();
-  loadProblems();
+  await loadProblems();
   countdown();
 }
 
@@ -405,7 +401,6 @@ function isEqual(formattedReply, formattedAnswer) {
   arr2.forEach((word, i) => {
     if (word == "X") arr1[i] = "X";
   });
-  console.log([arr1, arr2]);
   if (arr1.every((x, i) => x == arr2[i])) {
     return true;
   } else {
@@ -485,14 +480,12 @@ function changeCourse(event) {
   }
 }
 
-function loadWhiteList() {
-  fetch(`words.lst`)
-    .then((response) => response.text())
-    .then((text) => {
-      text.trimEnd().split("\n").forEach((word) => {
-        whiteList.set(word, true);
-      });
-    });
+async function loadWhiteList() {
+  const response = await fetch(`words.lst`);
+  const text = await response.text();
+  text.trimEnd().split("\n").forEach((word) => {
+    whiteList.set(word, true);
+  });
 }
 
 function getGlobalCSS() {
@@ -507,7 +500,7 @@ function getGlobalCSS() {
   return css;
 }
 
-loadWhiteList();
+await loadWhiteList();
 
 const globalCSS = getGlobalCSS();
 [...document.getElementsByClassName("voice")].forEach((node) => {
