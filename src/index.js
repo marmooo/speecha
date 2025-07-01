@@ -25,9 +25,10 @@ whiteList.set("mt.", true);
 let problems = [];
 let englishVoices = [];
 let audioContext;
+let voiceStopped = false;
 const audioBufferCache = {};
-const voiceInput = setVoiceInput();
 loadVoices();
+const voiceInput = setVoiceInput();
 loadConfig();
 
 function loadConfig() {
@@ -217,6 +218,7 @@ function nextProblem() {
   newNode.classList.add("text-primary");
   answer = roma;
   speak(roma);
+  startVoiceInput();
 }
 
 async function startGame() {
@@ -300,10 +302,8 @@ function startGameTimer() {
       clearInterval(gameTimer);
       bgm.pause();
       playAudio("end");
-      playPanel.classList.add("d-none");
-      countPanel.classList.add("d-none");
-      scorePanel.classList.remove("d-none");
       scoring();
+      stopVoiceInput();
     }
   }, 1000);
 }
@@ -313,6 +313,9 @@ function initTime() {
 }
 
 function scoring() {
+  playPanel.classList.add("d-none");
+  countPanel.classList.add("d-none");
+  scorePanel.classList.remove("d-none");
   document.getElementById("score").textContent = correctCount;
   document.getElementById("problemCount").textContent = correctCount +
     errorCount;
@@ -421,13 +424,12 @@ function setVoiceInput() {
     // voiceInput.interimResults = true;
     voiceInput.continuous = true;
 
-    voiceInput.onstart = voiceInputOnStart;
     voiceInput.onend = () => {
-      if (!speechSynthesis.speaking) {
-        voiceInput.start();
-      }
+      if (voiceStopped) return;
+      voiceInput.start();
     };
     voiceInput.onresult = (event) => {
+      voiceInput.stop();
       const replyText = event.results[0][0].transcript;
       document.getElementById("reply").textContent = replyText;
       const formattedReply = formatSentence(replyText);
@@ -440,32 +442,37 @@ function setVoiceInput() {
         }
         playAudio("correct", 0.3);
         nextProblem();
+        replyPlease.classList.remove("d-none");
+        reply.classList.add("d-none");
+      } else {
+        replyPlease.classList.add("d-none");
+        reply.classList.remove("d-none");
       }
-      replyPlease.classList.add("d-none");
-      reply.classList.remove("d-none");
-      voiceInput.stop();
     };
     return voiceInput;
   }
 }
 
-function voiceInputOnStart() {
+function startVoiceInput() {
+  voiceStopped = false;
   document.getElementById("startVoiceInput").classList.add("d-none");
   document.getElementById("stopVoiceInput").classList.remove("d-none");
-}
-
-function voiceInputOnStop() {
-  document.getElementById("startVoiceInput").classList.remove("d-none");
-  document.getElementById("stopVoiceInput").classList.add("d-none");
-}
-
-function startVoiceInput() {
-  voiceInput.start();
+  replyPlease.classList.remove("d-none");
+  reply.classList.add("d-none");
+  try {
+    voiceInput.start();
+  } catch {
+    // continue regardless of error
+  }
 }
 
 function stopVoiceInput() {
-  voiceInputOnStop();
-  voiceInput.stop();
+  voiceStopped = true;
+  document.getElementById("startVoiceInput").classList.remove("d-none");
+  document.getElementById("stopVoiceInput").classList.add("d-none");
+  replyPlease.classList.remove("d-none");
+  reply.classList.add("d-none");
+  voiceInput.abort();
 }
 
 function changeMode(event) {
