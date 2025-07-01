@@ -354,10 +354,8 @@ const abbrevs2 = {
 function formatSentence(sentence) {
   // 音声入力では文頭/文末の大文字小文字が不安定なので小文字に統一
   sentence = sentence.toLowerCase();
-  // 音声入力では文末の ,.!? が入力されにくく邪魔なので除去
-  if (/[,.!?]/.test(sentence.slice(-1))) {
-    sentence = sentence.slice(0, -1);
-  }
+  // 音声入力では ,.!? が入力されにくく邪魔なので除去
+  sentence = sentence.replace(/[,.!?]/g, "");
   // TODO: 郵便番号が失敗するかも？
   // face-to-face のような - は不安定なのでスペース区切りに統一
   sentence = sentence.replace(/-/g, " ");
@@ -431,7 +429,7 @@ function setVoiceInput() {
     voiceInput.onresult = (event) => {
       voiceInput.stop();
       const replyText = event.results[0][0].transcript;
-      document.getElementById("reply").textContent = replyText;
+      reply.textContent = replyText;
       const formattedReply = formatSentence(replyText);
       const formattedAnswer = formatSentence(answer);
       if (isEqual(formattedReply, formattedAnswer)) {
