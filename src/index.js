@@ -75,10 +75,6 @@ function createAudioContext() {
 }
 
 function unlockAudio() {
-  const uttr = new SpeechSynthesisUtterance("");
-  uttr.lang = "en-US";
-  speechSynthesis.speak(uttr);
-
   if (audioContext) {
     audioContext.resume();
   } else {
@@ -252,6 +248,7 @@ class TalkBox extends HTMLElement {
 customElements.define("talk-box", TalkBox);
 
 function countdown() {
+  speak(""); // unlock
   correctCount = errorCount = 0;
   if (localStorage.getItem("bgm") == 1) bgm.play();
   countPanel.classList.remove("d-none");
