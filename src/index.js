@@ -9,6 +9,7 @@ const scorePanel = document.getElementById("scorePanel");
 const startButton = document.getElementById("startButton");
 const gradeOption = document.getElementById("gradeOption");
 const resultNode = document.getElementById("result");
+const mode = document.getElementById("mode");
 const gameTime = 180;
 let gameTimer;
 // https://dova-s.jp/bgm/play14775.html
@@ -217,10 +218,9 @@ function nextProblem() {
   startVoiceInput();
 }
 
-async function startGame() {
+function startGame() {
   clearInterval(gameTimer);
   initTime();
-  await loadProblems();
   countdown();
 }
 
@@ -248,7 +248,7 @@ class TalkBox extends HTMLElement {
 customElements.define("talk-box", TalkBox);
 
 function countdown() {
-  speak(""); // unlock
+  speak("Ready"); // unlock
   correctCount = errorCount = 0;
   if (localStorage.getItem("bgm") == 1) bgm.play();
   countPanel.classList.remove("d-none");
@@ -380,7 +380,7 @@ function formatSentence(sentence) {
   }).join(" ");
   // 認識の難しい固有名詞を除去
   // 大文字小文字が不安定なので、頻度の高い単語だけを認識対象にする
-  if (document.getElementById("mode").textContent == "EASY") {
+  if (mode.textContent == "EASY") {
     sentence = sentence.split(/[,.!?]/)
       .map((s) => {
         const words = s.split(/\s/);
@@ -507,6 +507,7 @@ function getGlobalCSS() {
 }
 
 await loadWhiteList();
+await loadProblems();
 
 const globalCSS = getGlobalCSS();
 [...document.getElementsByClassName("voice")].forEach((node) => {
@@ -517,7 +518,7 @@ const globalCSS = getGlobalCSS();
 });
 startButton.onclick = startGame;
 skipButton.onclick = skipSentence;
-document.getElementById("mode").onclick = changeMode;
+mode.onclick = changeMode;
 document.getElementById("course").onclick = changeCourse;
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("toggleBGM").onclick = toggleBGM;
