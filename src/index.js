@@ -19,10 +19,6 @@ bgm.loop = true;
 let answer = "Let's imitate in english!";
 let correctCount = 0;
 let errorCount = 0;
-const whiteList = new Map();
-whiteList.set("mr.", true);
-whiteList.set("ms.", true);
-whiteList.set("mt.", true);
 let problems = [];
 let englishVoices = [];
 let audioContext;
@@ -320,7 +316,6 @@ function scoring() {
 
 // he'd --> he had/would の複数があるので無視
 // it's --> it is/has の複数形があるので無視
-// 上記は意識的に使い分ければ何とかなる
 const abbrevs1 = {
   "'m": " am",
   "'re": " are",
@@ -329,7 +324,7 @@ const abbrevs1 = {
 };
 
 const abbrevs2 = {
-  "ain't": "am not", // TODO: ネイティブ英語では不安定
+  "ain't": "am not", // ネイティブ英語では不安定
   "isn't": "is not",
   "aren't": "are not",
   "wasn't": "was not",
@@ -348,7 +343,30 @@ const abbrevs2 = {
   "mustn't": "must not",
 };
 
+function maskProperNounsExceptSentenceStart(text) {
+  return text
+    .split(/\s+/)
+    .map((word, i) => {
+      if (i === 0) return word;
+      if (/^[A-Z]/.test(word)) return "X";
+      return word;
+    })
+    .join(" ");
+}
+
+// He likes Paris. --> He likes X.
+function maskProperNounsInText(text) {
+  const parts = text.split(/([.!?])/);
+  const maskedParts = parts.map((part) => {
+    if (/^[.!?]$/.test(part)) return part;
+    return maskProperNounsExceptSentenceStart(part.trim());
+  });
+  return maskedParts.join("");
+}
+
 function formatSentence(sentence) {
+  // 固有名詞はなるべく X に置き換えて認識しやすく
+  sentence = maskProperNounsInText(sentence);
   // 音声入力では文頭/文末の大文字小文字が不安定なので小文字に統一
   sentence = sentence.toLowerCase();
   // 音声入力では ,.!? が入力されにくく邪魔なので除去
@@ -378,22 +396,6 @@ function formatSentence(sentence) {
     }
     return word;
   }).join(" ");
-  // 認識の難しい固有名詞を除去
-  // 大文字小文字が不安定なので、頻度の高い単語だけを認識対象にする
-  if (mode.textContent == "EASY") {
-    sentence = sentence.split(/[,.!?]/)
-      .map((s) => {
-        const words = s.split(/\s/);
-        return words.map((word) => {
-          if (whiteList.get(word)) {
-            return word;
-          } else {
-            return "X";
-          }
-        }).join(" ");
-      })
-      .flat().join(" ");
-  }
   return sentence;
 }
 
@@ -484,14 +486,6 @@ function changeCourse(event) {
   } else {
     event.target.textContent = "短文";
   }
-}
-
-async function loadWhiteList() {
-  const response = await fetch(`words.lst`);
-  const text = await response.text();
-  text.trimEnd().split("\n").forEach((word) => {
-    whiteList.set(word, true);
-  });
 }
 
 function getGlobalCSS() {

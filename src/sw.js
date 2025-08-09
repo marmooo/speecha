@@ -1,8 +1,7 @@
-const CACHE_NAME = "2025-07-30 00:00";
+const CACHE_NAME = "2025-08-10 00:00";
 const urlsToCache = [
   "/speecha/",
   "/speecha/index.js",
-  "/speecha/words.lst",
   "/speecha/mp3/bgm.mp3",
   "/speecha/mp3/correct3.mp3",
   "/speecha/mp3/end.mp3",
