@@ -1,4 +1,5 @@
 import numberToWords from "https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/+esm";
+import { createWorker } from "https://cdn.jsdelivr.net/npm/emoji-particle@0.0.4/+esm";
 
 const replyPlease = document.getElementById("replyPlease");
 const reply = document.getElementById("reply");
@@ -11,11 +12,13 @@ const gradeOption = document.getElementById("gradeOption");
 const resultNode = document.getElementById("result");
 const mode = document.getElementById("mode");
 const gameTime = 180;
-let gameTimer;
+const emojiParticle = initEmojiParticle();
+const maxParticleCount = 10;
 // https://dova-s.jp/bgm/play14775.html
 const bgm = new Audio("mp3/bgm.mp3");
 bgm.volume = 0.1;
 bgm.loop = true;
+let gameTimer;
 let answer = "Let's imitate in english!";
 let correctCount = 0;
 let errorCount = 0;
@@ -183,6 +186,30 @@ function speak(text) {
   speechSynthesis.speak(msg);
 }
 
+function initEmojiParticle() {
+  const canvas = document.createElement("canvas");
+  Object.assign(canvas.style, {
+    position: "fixed",
+    pointerEvents: "none",
+    top: "0px",
+    left: "0px",
+  });
+  canvas.width = document.documentElement.clientWidth;
+  canvas.height = document.documentElement.clientHeight;
+  document.body.appendChild(canvas);
+
+  const offscreen = canvas.transferControlToOffscreen();
+  const worker = createWorker();
+  worker.postMessage({ type: "init", canvas: offscreen }, [offscreen]);
+
+  globalThis.addEventListener("resize", () => {
+    const width = document.documentElement.clientWidth;
+    const height = document.documentElement.clientHeight;
+    worker.postMessage({ type: "resize", width, height });
+  });
+  return { canvas, offscreen, worker };
+}
+
 async function loadProblems() {
   const grade = gradeOption.selectedIndex + 2;
   const course = document.getElementById("course").textContent;
@@ -245,7 +272,6 @@ customElements.define("talk-box", TalkBox);
 
 function countdown() {
   speak("Ready"); // unlock
-  correctCount = errorCount = 0;
   if (localStorage.getItem("bgm") == 1) bgm.play();
   countPanel.classList.remove("d-none");
   infoPanel.classList.add("d-none");
@@ -264,6 +290,7 @@ function countdown() {
       counter.textContent = t;
     } else {
       clearInterval(timer);
+      correctCount = errorCount = 0;
       countPanel.classList.add("d-none");
       infoPanel.classList.remove("d-none");
       playPanel.classList.remove("d-none");
@@ -433,10 +460,18 @@ function setVoiceInput() {
       const formattedAnswer = formatSentence(answer);
       if (isEqual(formattedReply, formattedAnswer)) {
         correctCount += 1;
-        if (navigator.onLine) {
-          const img = document.getElementById("cat");
-          img.src = "/speecha/img/cat" + getRandomInt(0, 74) + ".webp";
+        for (let i = 0; i < Math.min(correctCount, maxParticleCount); i++) {
+          emojiParticle.worker.postMessage({
+            type: "spawn",
+            options: {
+              particleType: "popcorn",
+              originX: Math.random() * emojiParticle.canvas.width,
+              originY: Math.random() * emojiParticle.canvas.height,
+            },
+          });
         }
+        const img = document.getElementById("cat");
+        img.src = "/speecha/img/cat" + getRandomInt(0, 74) + ".webp";
         playAudio("correct", 0.3);
         nextProblem();
         replyPlease.classList.remove("d-none");
@@ -500,7 +535,6 @@ function getGlobalCSS() {
   return css;
 }
 
-await loadWhiteList();
 await loadProblems();
 
 const globalCSS = getGlobalCSS();
